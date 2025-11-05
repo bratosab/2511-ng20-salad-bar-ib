@@ -1,0 +1,17 @@
+<h2 class="mat-headline-medium">Welcome {{ order.name() }}</h2>
+<div class="topping-lists">
+  <app-toppings
+    [toppings]="toppingList()"
+    (chooseTopping)="chooseTopping($event)"
+    buttonLabel="+1"
+  ></app-toppings>
+
+  <div>
+    <h3>Total price : {{ toppings.totalPrice() | currency : '€' }}</h3>
+    <app-toppings
+      [toppings]="toppings.chosenToppings()"
+      (chooseTopping)="removeTopping($event)"
+      buttonLabel="-1"
+    ></app-toppings>
+  </div>
+</div>

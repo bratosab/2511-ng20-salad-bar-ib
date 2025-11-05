@@ -1,0 +1,9 @@
+<ul>
+  @for (topping of toppings(); track topping.id) {
+  <li>
+    {{ topping.name }} ({{ topping.price | currency : '€' }})
+
+    <button matButton="filled" (click)="handleToppingClick(topping)">{{ buttonLabel() }}</button>
+  </li>
+  }
+</ul>

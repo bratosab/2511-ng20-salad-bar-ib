@@ -1,0 +1,20 @@
+<form [formGroup]="orderForm" (ngSubmit)="startOrder()">
+  <mat-form-field>
+    <mat-label>What is your name</mat-label>
+    <input type="text" matInput formControlName="name" />
+    <mat-error>Please tell me your name !</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>What is your number</mat-label>
+    <input type="text" matInput formControlName="tel" />
+    @if(telControl.hasError('required')) {
+    <mat-error>Give me your number !</mat-error>
+    } @else if(telControl.hasError('pattern')) {
+    <mat-error>That is not a real number !</mat-error>
+    }
+  </mat-form-field>
+
+  <button type="submit" matButton="outlined">Start order</button>
+</form>
+
