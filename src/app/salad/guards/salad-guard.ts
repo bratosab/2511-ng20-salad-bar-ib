@@ -1,12 +1,15 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { Order } from '../../services/order';
+import { Store } from '@ngrx/store';
 
 export const saladGuard: CanActivateFn = (route, state) => {
-  const order = inject(Order);
+  const store = inject(Store);
   const router = inject(Router);
 
-  if (order.name() && order.tel()) {
+  const app = store.selectSignal(state => state.app)
+
+  if (app().name && app().tel) {
     return true;
   } else {
     router.navigate(['/'])

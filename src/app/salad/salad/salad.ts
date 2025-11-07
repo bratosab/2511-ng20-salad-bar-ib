@@ -3,18 +3,19 @@ import { Order } from '../../services/order';
 import { Toppings } from '../../services/toppings';
 import { Topping } from '../../models/topping';
 import { filter, map } from 'rxjs';
+import { Toppings as Toppings_1 } from '../toppings/toppings';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-salad',
-  standalone: false,
-  templateUrl: './salad.html',
-  styleUrl: './salad.scss',
+    selector: 'app-salad',
+    templateUrl: './salad.html',
+    styleUrl: './salad.scss',
+    imports: [Toppings_1, CurrencyPipe],
 })
 export class Salad implements OnInit {
   protected order = inject(Order);
   protected toppings = inject(Toppings);
 
-  protected toppingListOld: Topping[] = [];
   protected toppingList = signal<Topping[]>([]);
 
   ngOnInit(): void {
@@ -22,7 +23,6 @@ export class Salad implements OnInit {
       .getToppings()
       .subscribe((toppings) => {
         this.toppingList.set(toppings);
-        this.toppingListOld = toppings;
       });
   }
 

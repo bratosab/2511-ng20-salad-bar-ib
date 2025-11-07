@@ -1,11 +1,13 @@
 import { Component, input, Input, output } from '@angular/core';
 import { Topping } from '../../models/topping';
+import { MatButton } from '@angular/material/button';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-toppings',
-  standalone: false,
-  templateUrl: './toppings.html',
-  styleUrl: './toppings.scss',
+    selector: 'app-toppings',
+    templateUrl: './toppings.html',
+    styleUrl: './toppings.scss',
+    imports: [MatButton, CurrencyPipe],
 })
 export class Toppings {
   // @Input() public toppings: Topping[] = []
