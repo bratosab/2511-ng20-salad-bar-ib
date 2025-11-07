@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable, signal, effect } from '@angular/core';
 import { Topping } from '../models/topping';
+import { delay, Observable, of, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -10,9 +11,27 @@ export class Toppings {
 
   private readonly baseUrl = 'https://retoolapi.dev/XDaOzA';
 
+  private availableToppings: Topping[] = [];
   getToppings() {
-    return this.http.get<Topping[]>(`${this.baseUrl}/toppings`);
+    return this.http.get<Topping[]>(`${this.baseUrl}/toppings`).pipe(
+      tap((toppings) => {
+        this.availableToppings = toppings;
+      }
+    ))
   }
+
+  // Simulated "backend search" for toppings
+searchToppings(query: string): Observable<Topping[]> {
+  const lowercaseQuery = query.toLowerCase();
+  
+  // Filter locally available toppings that include the query
+  const filtered = this.availableToppings.filter(t =>
+    t.name.toLowerCase().includes(lowercaseQuery)
+  );
+  
+  // Simulate a 1-second delay to mimic backend latency
+  return of(filtered).pipe(delay(1000)); // simulate latency
+}
 
 
   // --------------------------------------------

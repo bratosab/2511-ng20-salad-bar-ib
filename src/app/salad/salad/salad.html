@@ -1,4 +1,6 @@
 <h2 class="mat-headline-medium">Welcome {{ order.name() }}</h2>
+<input type="text" placeholder="Search toppings..." (input)="onSearch($event.target.value)" />
+
 <div class="topping-lists">
   <app-toppings
     [toppings]="toppingList()"
